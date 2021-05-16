@@ -1,0 +1,100 @@
+<!--HEADER START-->
+<!DOCTYPE html>
+<html>
+<title>Chess Attack</title>
+<link href="chessIcon.png" rel="icon" type="image/png"/>
+<style>
+	body {
+		font-family: arial;
+		background: #121212;
+		color: #f8f8ff;
+		margin: 0;
+	}
+	
+	#container {
+		position: relative;
+		min-height: 85vh;
+		margin: 0;
+	}
+	
+	#header {
+		width: 100%;
+		padding: 10px 0px;
+		background: #333333;
+		text-align: center;
+	}
+	
+	#header a {
+		color: #f8f8ff;
+		text-decoration: none;	
+	}
+	
+	#content {
+		margin: 100px auto 0px auto;
+		padding: 0px 0px 100px 0px;
+		text-align: center;
+	}
+	
+	#footer {
+		text-align: center;
+		padding: 15px 0px;
+		width: 100%;
+		bottom: 0px;
+		position: absolute;
+	}
+	
+	/*========== OTHER ==========*/
+	#unityContainer {
+		position: absolute;
+		top: 150px;
+		left: 50%; 
+		transform: translate(-50%, 0%);
+	}
+	
+	#description {
+		width: 400px;
+		padding: 600px 0px 0px 0px;
+		margin: 0px auto;
+	}
+	
+	#content img {
+		width: 250px;
+		height: 75px;
+	}
+	
+</style>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<script src="Build/UnityLoader.js"></script>
+	<script>
+		UnityLoader.instantiate("unityContainer", "Build/ChessAttack.json");
+	</script>
+</head>
+<body>
+<div id="container">
+	<div id="header">
+		<a href="index.html"><strong><font size="7">GABE'S WEBSITE</font></strong></a>
+	</div>
+	<div id="content">
+	
+		<div id="unityContainer" style="width: 400px; height: 600px; margin: auto"></div>
+		
+		<div id="description">
+		<h4><strong><font size="5">HOW TO PLAY</font></strong></h4>
+		Move the King using the keyboard or mouse. <br>
+		Capture enemy pieces by jumping on them. <br>
+		Don't let them capture you first! <br>
+		<br>
+		<h4><strong><font size="5">MOBILE</font></strong></h4>
+		</div>
+						
+		<a href="https://apps.apple.com/us/app/chess-attack-mobile/id1564877153" target="_blank"><img src="App_Store_Badge.svg"></a>
+		<a href="https://play.google.com/store/apps/details?id=com.GabrielDomino.ChessAttack" target="_blank"><img src="Google_Play_Badge.png"></a>
+	</div>
+	<div id="footer">
+		<font size="2">Copyright &copy; 2020 Gabriel Domino. All rights reserved.<font>
+	</div>
+</div>
+</body>
+</html>

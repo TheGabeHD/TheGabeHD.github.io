@@ -1,0 +1,717 @@
+<!--HEADER START-->
+<!DOCTYPE html>
+<html>
+<title>Scuba Sim</title>
+<link href="scuba.png" rel="icon" type="image/png"/>
+<style>
+	body {
+		font-family: arial;
+		background: #121212;
+		color: #f8f8ff;
+		margin: 0;
+	}
+	
+	#container {
+		position: relative;
+		min-height: 85vh;
+		margin: 0;
+	}
+	
+	#header {
+		width: 100%;
+		padding: 10px 0px;
+		background: #333333;
+		text-align: center;
+	}
+	
+	#header a {
+		color: #f8f8ff;
+		text-decoration: none;	
+	}
+	
+	#content {
+		margin: 50px auto 0px auto;
+		padding: 0px 0px 100px 0px;
+	}
+	
+	#content canvas {
+		background: url(background.png); 
+		color: #333333;
+	}
+	
+	#content .canvas {
+		text-align: center;
+		margin: auto;
+		padding: 10px 10px 30px 10px;
+		width: 960px;
+		height: 600px;
+		background: #555555;
+	}
+	
+	#content .hud {
+		display: inline;
+		margin: 0px 0px 0px 15px;
+	}
+	
+	#content table {
+		width: 960px;
+		margin: 25px auto;
+	}
+	
+	#td1 {
+		padding: 10px 75px;
+	}
+	
+	#td2 {
+		text-align: center;
+	}
+	
+	#footer {
+		text-align: center;
+		padding: 15px 0px;
+		width: 100%;
+		bottom: 0px;
+		position: absolute;
+	}
+	
+</style>
+<body>
+<div id="container">
+	<div id="header">
+		<a href="index.html"><strong><font size="7">GABE'S WEBSITE</font></strong></a>
+	</div>
+	<div id="content">
+			
+		<div class="canvas">
+			<canvas onclick="onClick(event)" onmousemove="movePlayer(event)" 
+			id="gameCanvas" width="960" height="600"></canvas>
+			<br>
+			<strong><font size=4>
+			<div class="hud">Depth: <span id="score"></span>m</div>
+			<div class="hud">Health: </div> <img id="hits" src="hits3.png">
+			</font></strong>
+		</div>
+		
+		<table>
+			<tr>
+				<th width=50%><strong><font size="5">HOW TO PLAY</font></strong></th>
+				<th width=50%><strong><font size="5">MOBILE</font></strong></th>
+			</tr>
+			<tr>
+				<td id="td1">
+					Use your mouse to move the 
+					<img src="scuba.png"><font color="brown"> diver</font> 
+					and avoid the 
+					<img src="jellyfish.png"><font color="#f442f1"> dangerous sea creatures.</font> 
+					If you lose all of your 
+					<img src="health.png"><font color="red"> health</font>,
+					its game over.
+				</td>
+				<td id="td2">
+					Use these links to play <br>
+					the original version (Android): <br>
+					<a class="link" href="ScubaSim.apk">Download the .apk</a><br>
+					<a class="link" href="http://ai2.appinventor.mit.edu/?galleryId=5228513455112192" target="_blank">MIT App Inventor 2 Page</a>
+				</td>
+			</tr>
+		</table>
+		
+	</div>
+	<div id="footer">
+		<font size="2">Copyright &copy; 2020 Gabriel Domino. All rights reserved.<font>
+	</div>
+</div>
+</body>
+</html>
+<script>
+//-----------------------------------------------------------------------------------
+//STUFF TO DO ON LOAD
+
+	//Set up canvas
+	var canvas = document.getElementById("gameCanvas");
+	var ctx = canvas.getContext("2d");
+	var gameState = "menu";
+	
+	//Initialize variables
+	var gameScore = 0;
+	var gameSpeed = 10;
+	var hits = 3;
+	var interval = (updateGame, 0);
+	var introImg = new Image();
+	introImg.src = "Intro.png"
+	var introInterval = setInterval(drawIntro, 10);
+	var endImg = new Image();
+	endImg.src = "End.png";
+	document.getElementById("score").innerHTML = gameScore.toFixed(2);
+	
+	//Initialize audio
+	var healSound = new Audio("heal.wav");
+	var hitSound = new Audio("hit.wav");
+	var inflateSound = new Audio("inflate.wav");
+	var shootSound = new Audio("shoot.wav");
+	var splashSound = new Audio("splash.wav");
+	
+	//Create objects
+	var player = new object("scuba.png", 0, 0, 0, "player");
+	var health = new object("health.png", 0, 0, 0, "health");
+		health.spawned = false;
+	var jellyfish = new object("jellyfish.png", Math.random() * canvas.width, canvas.height, 0, "enemy");
+	var squid = new object("squid.png", 0, 0, 0, "enemy");
+	var manta = new object("manta.png", 0, 0, 0, "enemy");
+	var puffer = new object("pufferfishSmall.png", 0, 0, 0, "enemy");
+		puffer.inflate = false;
+	var spike = new object("spike.png", -20, -20, 10, "enemy");
+	var whale = new object("whale.png", 0, 0, 0, "enemy");
+	var piranha = new object("piranha.png", 0, 0, 0, "enemy");
+	var shark = new object("shark.png", 0, 0, 0, "enemy");
+	
+//-----------------------------------------------------------------------------------
+//BEGINNING OF GAME
+
+	function startGame(){
+		gameState = "playing";
+		gameScore = 0;
+		hits = 3;
+		document.getElementById("hits").src = "hits" + hits + ".png";
+		player.type = "player"
+		player.image.src = "Scuba.png"
+		clearInterval(interval);
+		clearInterval(introInterval);
+		interval = setInterval(updateGame, gameSpeed);
+		
+		//initialize objects for restarts
+		initialize(health);
+		health.spawned = false;
+		initialize(jellyfish);
+		initialize(squid);
+		initialize(manta);
+		initialize(puffer);
+		initialize(whale);
+		initialize(piranha);
+		initialize(shark);
+	}
+
+//-----------------------------------------------------------------------------------
+//PLAYER DATA
+
+	//Function for moving the player
+	function movePlayer(event){
+	if (gameState == "playing"){
+		player.x = event.x + window.pageXOffset - canvas.offsetLeft;
+		player.y = event.y + window.pageYOffset - canvas.offsetTop;
+		}
+	}
+	
+//-----------------------------------------------------------------------------------
+//GAME UPDATING DATA
+
+	//Update game area
+	function updateGame() {
+	
+		//Initialize the canvas
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		ctx.fillStyle = "rgba(0, 0, 0, " + gameScore / 255 + ")"
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+		
+		//Draw the player
+		ctx.drawImage(player.image, player.x - 10, player.y - 10);
+		
+		//If the score is a multiple of 100 and the player needs health, spawn health
+		if ((gameScore % 50) > 49 && hits < 3 && !health.spawned){
+			health.spawned = true;
+			health.xspeed = -1;
+			if (health.x > (canvas.width / 2)){health.xspeed = 1;}
+			health.yspeed = -1
+			health.timer = 10;
+			splashSound.play();
+		}
+		if (health.spawned){
+			moveHealth();
+			bounceCart(health);
+			collisionDetect(health);
+		}
+		
+		//Draw some enemies and check for collisions
+		if (gameScore >= 3){
+			moveJellyfish();
+			bounce(jellyfish);
+			collisionDetect(jellyfish);
+			}
+
+		if (gameScore >= 10){
+			moveManta();
+			collisionDetect(manta);
+		}
+
+		if (gameScore >= 25){
+			moveSquid();
+			bounce(squid);
+			collisionDetect(squid);
+		}
+
+		if (gameScore >= 50){
+			movePuffer();
+			bounce(puffer);
+			collisionDetect(puffer);
+		}
+		
+		if (gameScore >= 65){
+			moveWhale();
+			bounce(whale);
+			collisionDetect(whale);
+		}
+
+		if (gameScore >= 80){
+			movePiranha();
+			collisionDetect(piranha);
+		}
+
+		if (gameScore >= 100){
+			moveShark();
+			collisionDetect(shark);
+		}
+		
+		if (gameScore >= 3 && gameScore < 3.5 	|| 
+			gameScore >= 10 && gameScore < 10.5	||
+			gameScore >= 25 && gameScore < 25.5	||
+			gameScore >= 50 && gameScore < 50.5	||
+			gameScore >= 65 && gameScore < 65.5 ||
+			gameScore >= 80 && gameScore < 80.5	||
+			gameScore >= 100 && gameScore < 100.5){
+			splashSound.play();
+		}
+		
+		//Increase score if playing
+		if (gameState == "playing"){
+		gameScore += .01
+		document.getElementById("score").innerHTML = gameScore.toFixed(2);
+		}
+		
+		//Decrease the player invincibility timer if it gets hit
+		if (player.type == "invincible")
+			if (player.speed > 0){
+				player.speed -= .01;
+			}
+			else{
+				player.type = "player";
+				player.image.src = "Scuba.png";
+			}
+		
+		//If dead, display endImg
+		if (gameState == "menu"){
+			ctx.drawImage(endImg, 0, 0);
+		}	
+	}
+	
+//-----------------------------------------------------------------------------------
+//HEALTH PICKUP DATA
+
+	function moveHealth(){
+	
+		//Draw health
+		ctx.drawImage(health.image, health.x - 10, health.y - 10);
+		
+		//Update x and y
+		health.x += health.xspeed
+		health.y += health.yspeed
+		
+		//Delete health if expired
+		health.timer -= .01;
+		
+		if (health.timer < 0.5){
+			health.image.src = "healthPop.png";
+		}
+		
+		if (health.timer < 0){
+			health.spawned = false;
+			initialize(health);
+			health.image.src = "health.png";
+		}
+	}
+
+
+
+//-----------------------------------------------------------------------------------
+//JELLYFISH DATA
+
+	function moveJellyfish(){
+		if (jellyfish.speed <= 0){
+			//Initialize jellyfish
+			jellyfish.image.src = "jellyfish.png";
+			jellyfish.rotate = pointTowardsPlayer(jellyfish);
+			jellyfish.speed = 5;
+			jellyfish.timer = 1;
+			}
+			
+		//Draw jellyfish
+		ctx.save();
+		ctx.translate(jellyfish.x, jellyfish.y);
+		ctx.rotate(jellyfish.rotate);
+		ctx.drawImage(jellyfish.image, -10, -10);
+		ctx.restore();
+		
+		//Move jellyfish
+		if (jellyfish.timer <= 0 ){
+			jellyfish.image.src = "jellyfishMove.png";
+			jellyfish.x += jellyfish.speed * Math.cos(jellyfish.rotate);
+			jellyfish.y += jellyfish.speed * Math.sin(jellyfish.rotate);
+			jellyfish.speed -= .075;
+		}
+			
+		jellyfish.timer -= .02;
+	}	
+
+//-----------------------------------------------------------------------------------
+//MANTA DATA
+
+	function moveManta(){
+	
+		//Initialize the manta
+		if (manta.speed == 0){
+			manta.speed = 2;
+			manta.rotate = pointTowardsPlayer(manta);
+		}
+		
+		//Draw the manta
+		ctx.save();
+		ctx.translate(manta.x, manta.y);
+		ctx.rotate(manta.rotate);
+		ctx.drawImage(manta.image, -30, -30);
+		ctx.restore();
+		
+		//Move the manta
+		manta.x += manta.speed * Math.cos(manta.rotate);
+		manta.y += manta.speed * Math.sin(manta.rotate);
+
+		//When the manta hits a wall, point towards player
+		if (wallDetect(manta) > 0){
+			manta.rotate = pointTowardsPlayer(manta);
+		}
+	}
+
+
+//-----------------------------------------------------------------------------------
+//SQUID DATA
+
+	function moveSquid(){
+		if (squid.speed <= 0){
+			//Initialize squid
+			squid.image.src = "squid.png";
+			squid.rotate = pointTowardsPlayer(squid);
+			squid.speed = 9;
+			squid.timer = 1;
+			}
+			
+		//Draw squid
+		ctx.save();
+		ctx.translate(squid.x, squid.y);
+		ctx.rotate(squid.rotate);
+		ctx.drawImage(squid.image, -20, -10);
+		ctx.restore();
+		
+		//Move squid
+		if (squid.timer <= 0 ){
+			squid.image.src = "squidMove.png";
+			squid.x += squid.speed * Math.cos(squid.rotate);
+			squid.y += squid.speed * Math.sin(squid.rotate);
+			squid.speed -= .075;
+		}
+			
+		squid.timer -= .025;
+	}	
+	
+//-----------------------------------------------------------------------------------
+//PUFFERFISH DATA
+
+	function movePuffer(){
+		//Initialize pufferfish
+		if (puffer.speed == 0){
+			puffer.speed = 1;
+			puffer.inflate = false;
+			puffer.rotate = -Math.PI / 4
+			if (puffer.x > (canvas.width / 2)){puffer.rotate = 5 * Math.PI / 4}
+			puffer.timer = 5
+		}
+		
+		//draw pufferfish
+		ctx.save();
+		ctx.translate(puffer.x, puffer.y);
+		ctx.rotate(puffer.rotate);
+		ctx.drawImage(puffer.image, -puffer.image.width / 2, -puffer.image.height / 2);
+		ctx.restore();
+		
+		//move pufferfish
+		puffer.x += puffer.speed * Math.cos(puffer.rotate);
+		puffer.y += puffer.speed * Math.sin(puffer.rotate);
+		
+		puffer.timer -= .01;
+		
+		if (0 < puffer.timer && puffer.timer < 1 && puffer.inflate == false){
+			inflateSound.play();
+			puffer.image.src = "pufferfishLarge.png";
+			puffer.inflate = true;
+		}
+		
+		if (puffer.timer <= 0){
+			puffer.image.src = "pufferfishSmall.png";
+			spike.spawned = true;
+			puffer.inflate = false;
+			spike.x = puffer.x;
+			spike.y = puffer.y;
+			spike.rotate = pointTowardsPlayer(spike);
+			shootSound.play();
+			puffer.timer = 5;
+		}
+		
+		if (spike.spawned){
+		moveSpike();
+		collisionDetect(spike);
+		}
+	}
+	
+	//draw the spike if spawned
+	function moveSpike(){
+	
+		ctx.save();
+		ctx.translate(spike.x, spike.y);
+		ctx.rotate(spike.rotate);
+		ctx.drawImage(spike.image, -8.5, -8.5);
+		ctx.restore();
+		
+		spike.x += spike.speed * Math.cos(spike.rotate);
+		spike.y += spike.speed * Math.sin(spike.rotate);
+	
+		if (wallDetect(spike) > 0){
+		spike.spawned = false
+		}
+	}
+
+//-----------------------------------------------------------------------------------
+//WHALE DATA
+
+	function moveWhale(){
+	
+		//Initialize the whale
+		if (whale.speed == 0){
+			whale.speed = 1;
+			whale.rotate = -Math.PI / 4
+			if (whale.x > (canvas.width / 2)){whale.rotate = 5 * Math.PI / 4}
+		}
+		
+		//Draw the whale
+		ctx.save();
+		ctx.translate(whale.x, whale.y);
+		ctx.rotate(whale.rotate);
+		ctx.drawImage(whale.image, -whale.image.width / 2, -whale.image.height / 2);
+		ctx.restore();
+		
+		//Move the whale
+		whale.x += whale.speed * Math.cos(whale.rotate);
+		whale.y += whale.speed * Math.sin(whale.rotate);
+	}
+	
+//-----------------------------------------------------------------------------------
+//PIRANHA DATA
+
+	function movePiranha(){
+	
+		//Initialize the piranha
+		if (piranha.speed == 0){
+			piranha.speed = 3;
+			piranha.rotate = pointTowardsPlayer(piranha);
+		}
+	
+		//Draw the piranha
+		ctx.save();
+		ctx.translate(piranha.x, piranha.y);
+		ctx.rotate(piranha.rotate);
+		ctx.drawImage(piranha.image, -13, -9);
+		ctx.restore();
+	
+		//Move the piranha
+		piranha.rotate = pointTowardsPlayer(piranha);
+		piranha.x += piranha.speed * Math.cos(piranha.rotate);
+		piranha.y += piranha.speed * Math.sin(piranha.rotate);
+	}
+	
+//-----------------------------------------------------------------------------------
+//SHARK DATA
+
+	function moveShark(){
+	
+		//Initialize the shark
+		if (shark.speed == 0){
+			shark.speed = 5;
+			shark.rotate = pointTowardsPlayer(shark);
+		}
+	
+		//Draw the shark
+		ctx.save();
+		ctx.translate(shark.x, shark.y);
+		ctx.rotate(shark.rotate);
+		ctx.drawImage(shark.image, -19.5, -13.5);
+		ctx.restore();
+	
+		//Move the shark
+		shark.rotate = pointTowardsPlayer(shark);
+		shark.x += shark.speed * Math.cos(shark.rotate);
+		shark.y += shark.speed * Math.sin(shark.rotate);
+	}
+	
+//-----------------------------------------------------------------------------------
+//OTHER FUNCTIONS
+
+	//Draw the intro image
+	function drawIntro(){
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		player.x = Math.random() * canvas.width;
+		player.y = Math.random() * canvas.height;
+		moveJellyfish();
+		bounce(jellyfish);
+		ctx.drawImage(introImg, 0, 0);
+	}
+	
+	//Put objects at random position on bottom and speed = 0
+	function initialize(object){
+		object.x = Math.random() * canvas.width;
+		object.y = canvas.height;
+		object.speed = 0;
+	}
+
+	//Object Creator
+	function object(imgSrc, x, y, speed, type){
+		this.image = new Image();
+		this.image.src = imgSrc;
+		this.x = x;
+		this.y = y;
+		this.speed = speed;
+		this.type = type;
+	}
+	
+	
+	//Returns the radian value required to rotate
+	//the object towards the player
+	function pointTowardsPlayer(object){
+		var x = player.x - (object.x + object.image.x / 2);
+		var y = player.y - (object.y + object.image.y / 2);
+		if (x < 0){
+			return Math.atan(y/x) + Math.PI;
+			}
+		else
+		return Math.atan(y/x);
+	}
+		
+	//Called when the canvas is clicked
+	function onClick(event){
+		if (gameState == "menu"){
+			player.x = event.x + window.pageXOffset - canvas.offsetLeft;
+			player.y = event.y + window.pageYOffset - canvas.offsetTop;
+			canvas.style.cursor = "none";
+			startGame();
+		}
+	}
+	
+	//Called when the player gets the health pickup
+	function getHealth(){
+		if (hits < 3){
+			healSound.play();
+			hits += 1;
+		}
+		document.getElementById("hits").src = "hits" + hits + ".png";
+		health.spawned = false;
+		initialize(health);
+	}
+	
+	//Called when the player gets hit by an enemy
+	function getHit(){
+		hitSound.play();
+		hits -= 1;
+		document.getElementById("hits").src = "hits" + hits + ".png";
+		player.image.src = "ScubaHit.png";
+		if (hits > 0){
+		player.type = "invincible";
+		player.speed = 3; //player.speed is player.timer
+		} else {
+		endGame();
+		}
+	}
+	
+	//Bounces an object off the wall
+	function bounce(object){
+		var wall = wallDetect(object);
+		//If no wall, return
+		if (wall == 0){return;}
+		//If top or bottom, bounce
+		if (wall == 1 || wall == 3){
+			object.rotate = -object.rotate;
+			return;}
+		//If left or right, bounce
+		if (wall == 2 || wall == 4){
+			if (object.rotate >= 0){
+				object.rotate = Math.PI - object.rotate;
+				return;}
+			object.rotate = -Math.PI - object.rotate;
+			return;
+			}
+	}
+	
+	//Bounces a non-rotated object off the wall
+	function bounceCart(object){
+		var wall = wallDetect(object);
+		//If no wall, return
+		if (wall == 0){return;}
+		//If top or bottom, negate yspeed
+		if (wall == 1 || wall == 3){
+			object.yspeed = -object.yspeed;
+			return;}
+		//If left or right, negate xspeed
+		if (wall == 2 || wall == 4){
+			object.xspeed = -object.xspeed;
+			return;
+			}
+	}
+	
+	//Check if the object is passed a wall
+	//Returns: 	0 if no wall
+	//			1 if above
+	//			2 if right
+	//			3 if below
+	//			4 if left
+	function wallDetect(object){
+		if (object.y < 0){return 1}
+		if (object.x > canvas.width){return 2}
+		if (object.y > canvas.height){return 3}
+		if (object.x < 0){return 4}
+		return 0;
+	}
+	
+	//Check if the player collided with object
+	function collisionDetect(object){
+		//If the objects collided and
+		//if the object is health, get health
+		//If the object is enemy, get hit
+		if (player.x >= (object.x - (object.image.width / 2)) &&
+			player.x <= (object.x + (object.image.width / 2)) &&
+			player.y >= (object.y - (object.image.height / 2)) &&
+			player.y <= (object.y + (object.image.height / 2))){
+			
+			if(object.type == "health" && gameState == "playing" && health.spawned){
+				getHealth();
+			}
+			
+			if(player.type == "player" && object.type == "enemy" && hits > 0){
+				getHit();
+			}
+		}
+	}
+	
+	//Ends the game if the player dies
+	function endGame(){
+		gameState = "menu";
+		canvas.style.cursor = "default";
+	}
+
+</script>
+
+</body>
+</html>
