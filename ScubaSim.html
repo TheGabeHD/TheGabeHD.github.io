@@ -145,11 +145,11 @@
 	document.getElementById("score").innerHTML = gameScore.toFixed(2);
 	
 	//Initialize audio
-	var healSound = new Audio("heal.wav");
-	var hitSound = new Audio("hit.wav");
-	var inflateSound = new Audio("inflate.wav");
-	var shootSound = new Audio("shoot.wav");
-	var splashSound = new Audio("splash.wav");
+	var healSound = new Audio("Heal.wav");
+	var hitSound = new Audio("Hit.wav");
+	var inflateSound = new Audio("Inflate.wav");
+	var shootSound = new Audio("Shoot.wav");
+	var splashSound = new Audio("Splash.wav");
 	
 	//Create objects
 	var player = new object("Scuba.png", 0, 0, 0, "player");
@@ -172,7 +172,7 @@
 		gameState = "playing";
 		gameScore = 0;
 		hits = 3;
-		document.getElementById("hits").src = "hits" + hits + ".png";
+		document.getElementById("hits").src = "Hits" + hits + ".png";
 		player.type = "player"
 		player.image.src = "Scuba.png"
 		clearInterval(interval);
