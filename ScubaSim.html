@@ -102,9 +102,9 @@
 					Use your mouse to move the 
 					<img src="Scuba.png"><font color="brown"> diver</font> 
 					and avoid the 
-					<img src="jellyfish.png"><font color="#f442f1"> dangerous sea creatures.</font> 
+					<img src="Jellyfish.png"><font color="#f442f1"> dangerous sea creatures.</font> 
 					If you lose all of your 
-					<img src="health.png"><font color="red"> health</font>,
+					<img src="Health.png"><font color="red"> health</font>,
 					its game over.
 				</td>
 				<td id="td2">
@@ -152,18 +152,18 @@
 	var splashSound = new Audio("splash.wav");
 	
 	//Create objects
-	var player = new object("scuba.png", 0, 0, 0, "player");
-	var health = new object("health.png", 0, 0, 0, "health");
+	var player = new object("Scuba.png", 0, 0, 0, "player");
+	var health = new object("Health.png", 0, 0, 0, "health");
 		health.spawned = false;
-	var jellyfish = new object("jellyfish.png", Math.random() * canvas.width, canvas.height, 0, "enemy");
-	var squid = new object("squid.png", 0, 0, 0, "enemy");
-	var manta = new object("manta.png", 0, 0, 0, "enemy");
-	var puffer = new object("pufferfishSmall.png", 0, 0, 0, "enemy");
+	var jellyfish = new object("Jellyfish.png", Math.random() * canvas.width, canvas.height, 0, "enemy");
+	var squid = new object("Squid.png", 0, 0, 0, "enemy");
+	var manta = new object("Manta.png", 0, 0, 0, "enemy");
+	var puffer = new object("PufferfishSmall.png", 0, 0, 0, "enemy");
 		puffer.inflate = false;
-	var spike = new object("spike.png", -20, -20, 10, "enemy");
-	var whale = new object("whale.png", 0, 0, 0, "enemy");
-	var piranha = new object("piranha.png", 0, 0, 0, "enemy");
-	var shark = new object("shark.png", 0, 0, 0, "enemy");
+	var spike = new object("Spike.png", -20, -20, 10, "enemy");
+	var whale = new object("Whale.png", 0, 0, 0, "enemy");
+	var piranha = new object("Piranha.png", 0, 0, 0, "enemy");
+	var shark = new object("Shark.png", 0, 0, 0, "enemy");
 	
 //-----------------------------------------------------------------------------------
 //BEGINNING OF GAME
@@ -319,13 +319,13 @@
 		health.timer -= .01;
 		
 		if (health.timer < 0.5){
-			health.image.src = "healthPop.png";
+			health.image.src = "HealthPop.png";
 		}
 		
 		if (health.timer < 0){
 			health.spawned = false;
 			initialize(health);
-			health.image.src = "health.png";
+			health.image.src = "Health.png";
 		}
 	}
 
@@ -337,7 +337,7 @@
 	function moveJellyfish(){
 		if (jellyfish.speed <= 0){
 			//Initialize jellyfish
-			jellyfish.image.src = "jellyfish.png";
+			jellyfish.image.src = "Jellyfish.png";
 			jellyfish.rotate = pointTowardsPlayer(jellyfish);
 			jellyfish.speed = 5;
 			jellyfish.timer = 1;
@@ -352,7 +352,7 @@
 		
 		//Move jellyfish
 		if (jellyfish.timer <= 0 ){
-			jellyfish.image.src = "jellyfishMove.png";
+			jellyfish.image.src = "JellyfishMove.png";
 			jellyfish.x += jellyfish.speed * Math.cos(jellyfish.rotate);
 			jellyfish.y += jellyfish.speed * Math.sin(jellyfish.rotate);
 			jellyfish.speed -= .075;
@@ -396,7 +396,7 @@
 	function moveSquid(){
 		if (squid.speed <= 0){
 			//Initialize squid
-			squid.image.src = "squid.png";
+			squid.image.src = "Squid.png";
 			squid.rotate = pointTowardsPlayer(squid);
 			squid.speed = 9;
 			squid.timer = 1;
@@ -411,7 +411,7 @@
 		
 		//Move squid
 		if (squid.timer <= 0 ){
-			squid.image.src = "squidMove.png";
+			squid.image.src = "SquidMove.png";
 			squid.x += squid.speed * Math.cos(squid.rotate);
 			squid.y += squid.speed * Math.sin(squid.rotate);
 			squid.speed -= .075;
@@ -448,12 +448,12 @@
 		
 		if (0 < puffer.timer && puffer.timer < 1 && puffer.inflate == false){
 			inflateSound.play();
-			puffer.image.src = "pufferfishLarge.png";
+			puffer.image.src = "PufferfishLarge.png";
 			puffer.inflate = true;
 		}
 		
 		if (puffer.timer <= 0){
-			puffer.image.src = "pufferfishSmall.png";
+			puffer.image.src = "PufferfishSmall.png";
 			spike.spawned = true;
 			puffer.inflate = false;
 			spike.x = puffer.x;
