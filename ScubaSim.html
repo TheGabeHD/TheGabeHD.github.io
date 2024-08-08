@@ -88,7 +88,7 @@
 			<br>
 			<strong><font size=4>
 			<div class="hud">Depth: <span id="score"></span>m</div>
-			<div class="hud">Health: </div> <img id="hits" src="hits3.png">
+			<div class="hud">Health: </div> <img id="hits" src="Hits3.png">
 			</font></strong>
 		</div>
 		
@@ -617,7 +617,7 @@
 			healSound.play();
 			hits += 1;
 		}
-		document.getElementById("hits").src = "hits" + hits + ".png";
+		document.getElementById("hits").src = "Hits" + hits + ".png";
 		health.spawned = false;
 		initialize(health);
 	}
@@ -626,7 +626,7 @@
 	function getHit(){
 		hitSound.play();
 		hits -= 1;
-		document.getElementById("hits").src = "hits" + hits + ".png";
+		document.getElementById("hits").src = "Hits" + hits + ".png";
 		player.image.src = "ScubaHit.png";
 		if (hits > 0){
 		player.type = "invincible";
