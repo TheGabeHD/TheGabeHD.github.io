@@ -1,137 +1,90 @@
-<!--HEADER START-->
-<!DOCTYPE html>
-<html>
-<title>Scuba Sim</title>
-<link href="Scuba.png" rel="icon" type="image/png"/>
-<style>
-	body {
-		font-family: calibri;
-		background: #121212;
-		color: #f8f8ff;
-		margin: 0;
-	}
-	
-	#container {
-		position: relative;
-		min-height: 85vh;
-		margin: 0;
-	}
-	
-	#header {
-		width: 100%;
-		padding: 10px 0px;
-		background: #333333;
-		text-align: center;
-	}
-	
-	#header a {
-		color: #f8f8ff;
-		text-decoration: none;	
-	}
-	
-	#content {
-		margin: 50px auto 0px auto;
-		padding: 0px 0px 100px 0px;
-		text-align: center;
-	}
-	
-	#content canvas {
-		background: url(background.png); 
-		color: #333333;
-	}
-	
-	#content .canvas {
-		text-align: center;
-		margin: auto;
-		padding: 10px 10px 30px 10px;
-		width: 960px;
-		height: 600px;
-		background: #555555;
-	}
-	
-	#content .hud {
-		display: inline;
-		margin: 0px 0px 0px 15px;
-	}
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Scuba Sim by Gabriel Domino</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+		<link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="assets/scubasim/scuba.png" rel="icon" type="png">
+		<style>
 
-	#content table {
-		width: 960px;
-		margin: 25px auto;
-	}
-	
-	#td1 {
-		padding: 10px 75px;
-	}
-	
-	#td2 {
-		text-align: center;
-	}
+			.navbar-subtitle {
+				font-size: 14px;
+			}
 
-	#description {
-		width: 400px;
-		padding: 0px 0px 0px 0px;
-		margin: 0px auto;
-	}
+			.navbar-brand {
+				line-height: 0.8;
+			}
+
+			.nav-item {
+				margin-left: 20px;
+			}
+
+			.navbar-center-text {
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+			}
 	
-	#footer {
-		text-align: center;
-		padding: 15px 0px;
-		width: 100%;
-		bottom: 0px;
-		position: absolute;
-	}
+			.canvas {
+				background: url(assets/scubasim/background.png); 
+				color: #333333;
+				text-align: center;
+				width: 960px;
+				height: 600px;
+			}
 	
-</style>
-<body>
-<div id="container">
-	<div id="header">
-		<a href="index.html"><strong><font size="5">GABRIEL DOMINO</font></strong></a>
-	</div>
-	<div id="content">
-			
-		<div class="canvas">
-			<canvas onclick="onClick(event)" onmousemove="movePlayer(event)" 
-			id="gameCanvas" width="960" height="600"></canvas>
+			.hud {
+				display: inline;
+				margin: 0px 0px 0px 15px;
+			}
+	
+		</style>
+	</head>
+	<body class="bg-body-tertiary">
+
+		<!-- NAVBAR -->
+		<header>
+			<div class="navbar navbar-dark bg-dark shadow-sm">
+				<div class="container">
+					<a class="btn btn-outline-secondary" href="index.html#scubasim" class="nav-link">< Back</a>
+					<a href="#" class="navbar-brand navbar-center-text">
+						<strong>Scuba Sim</strong><br>
+					</a>
+				</div>
+			</div>
+		</header>
+
+		<!-- CANVAS -->
+		<div class="canvas my-5 mx-auto text-white">
+			<canvas onclick="onClick(event)" onmousemove="movePlayer(event)" id="gameCanvas" width="960" height="600"></canvas>
 			<br>
-			<strong><font size=4>
-			<div class="hud">Depth: <span id="score"></span>m</div>
-			<div class="hud">Health: </div> <img id="hits" src="Hits3.png">
-			</font></strong>
+			<strong>
+				<font size=4>
+					<div class="hud">Depth: <span id="score"></span>m</div>
+					<div class="hud">Health: </div> <img id="hits" src="assets/scubasim/hits3.png">
+				</font>
+			</strong>
 		</div>
 
-		<table>
-			<tr>
-				<th width=50%><strong><font size="5">HOW TO PLAY</font></strong></th>
-				<th width=50%><strong><font size="5">MOBILE</font></strong></th>
-			</tr>
-			<tr>
-				<td id="td1">
-					Use your mouse to move the <img src="Scuba.png"><font color="brown"> diver.</font><br>
-					Avoid the <img src="Jellyfish.png"><font color="#f442f1"> dangerous sea creatures.</font><br>
-					If you lose all of your <img src="Health.png"><font color="red"> health</font>, its game over.
-				</td>
-				<td id="td2">
-					Use these links to play <br>
-					the original version (Android): <br>
-					<a class="link" href="ScubaSim.apk">Download the .apk</a><br>
-					<a class="link" href="http://ai2.appinventor.mit.edu/?galleryId=5228513455112192" target="_blank">MIT App Inventor 2 Page</a>
-				</td>
-			</tr>
-		</table>	
-		
-		<div id="description">
-			<h4><strong><font size="5">ABOUT</font></strong></h4>
-			I created Scuba Sim during my first year in college as part of an intro programming course. 
-			The original version was made with block-based programming using MIT App Inventor 2.
-			Eventually, I recreated it using Javascript in order to host it on the web, where it lives to this day.
+		<!-- HOW TO PLAY -->
+		<div class="container-fluid mt-5 py-5 text-center">
+			<h5><b>How to Play</b></h5>
+			Use your mouse to move the <img src="assets/scubasim/scuba.png"><font color="brown"> diver.</font><br>
+			Avoid the <img src="assets/scubasim/jellyfish.png"><font color="#f442f1"> dangerous sea creatures.</font><br>
+			If you lose all of your <img src="assets/scubasim/health.png"><font color="red"> health</font>, its game over.
 		</div>
 
-	</div>
-	<div id="footer">
-		<font size="2">Copyright &copy; 2020 Gabriel Domino. All rights reserved.<font>
-	</div>
-</div>
-</body>
+		<!-- FOOTER -->
+		<footer class="text-body-secondary bg-black py-4">
+			<div class="container text-center">
+				Copyright &copy 2024 Gabriel Domino.
+			</div>
+		</footer>
+
+		<script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+	</body>
 </html>
 <script>
 //-----------------------------------------------------------------------------------
@@ -148,32 +101,32 @@
 	var hits = 3;
 	var interval = (updateGame, 0);
 	var introImg = new Image();
-	introImg.src = "Intro.png"
+	introImg.src = "assets/scubasim/intro.png"
 	var introInterval = setInterval(drawIntro, 10);
 	var endImg = new Image();
-	endImg.src = "End.png";
+	endImg.src = "assets/scubasim/end.png";
 	document.getElementById("score").innerHTML = gameScore.toFixed(2);
 	
 	//Initialize audio
-	var healSound = new Audio("Heal.wav");
-	var hitSound = new Audio("Hit.wav");
-	var inflateSound = new Audio("Inflate.wav");
-	var shootSound = new Audio("Shoot.wav");
-	var splashSound = new Audio("Splash.wav");
+	var healSound = new Audio("assets/scubasim/Heal.wav");
+	var hitSound = new Audio("assets/scubasim/Hit.wav");
+	var inflateSound = new Audio("assets/scubasim/Inflate.wav");
+	var shootSound = new Audio("assets/scubasim/Shoot.wav");
+	var splashSound = new Audio("assets/scubasim/Splash.wav");
 	
 	//Create objects
-	var player = new object("Scuba.png", 0, 0, 0, "player");
-	var health = new object("Health.png", 0, 0, 0, "health");
+	var player = new object("assets/scubasim/scuba.png", 0, 0, 0, "player");
+	var health = new object("assets/scubasim/health.png", 0, 0, 0, "health");
 		health.spawned = false;
-	var jellyfish = new object("Jellyfish.png", Math.random() * canvas.width, canvas.height, 0, "enemy");
-	var squid = new object("Squid.png", 0, 0, 0, "enemy");
-	var manta = new object("Manta.png", 0, 0, 0, "enemy");
-	var puffer = new object("PufferfishSmall.png", 0, 0, 0, "enemy");
+	var jellyfish = new object("assets/scubasim/jellyfish.png", Math.random() * canvas.width, canvas.height, 0, "enemy");
+	var squid = new object("assets/scubasim/squid.png", 0, 0, 0, "enemy");
+	var manta = new object("assets/scubasim/manta.png", 0, 0, 0, "enemy");
+	var puffer = new object("assets/scubasim/pufferfishSmall.png", 0, 0, 0, "enemy");
 		puffer.inflate = false;
-	var spike = new object("Spike.png", -20, -20, 10, "enemy");
-	var whale = new object("Whale.png", 0, 0, 0, "enemy");
-	var piranha = new object("Piranha.png", 0, 0, 0, "enemy");
-	var shark = new object("Shark.png", 0, 0, 0, "enemy");
+	var spike = new object("assets/scubasim/spike.png", -20, -20, 10, "enemy");
+	var whale = new object("assets/scubasim/whale.png", 0, 0, 0, "enemy");
+	var piranha = new object("assets/scubasim/piranha.png", 0, 0, 0, "enemy");
+	var shark = new object("assets/scubasim/shark.png", 0, 0, 0, "enemy");
 	
 //-----------------------------------------------------------------------------------
 //BEGINNING OF GAME
@@ -182,9 +135,9 @@
 		gameState = "playing";
 		gameScore = 0;
 		hits = 3;
-		document.getElementById("hits").src = "Hits" + hits + ".png";
+		document.getElementById("hits").src = "assets/scubasim/hits" + hits + ".png";
 		player.type = "player"
-		player.image.src = "Scuba.png"
+		player.image.src = "assets/scubasim/scuba.png"
 		clearInterval(interval);
 		clearInterval(introInterval);
 		interval = setInterval(updateGame, gameSpeed);
@@ -304,7 +257,7 @@
 			}
 			else{
 				player.type = "player";
-				player.image.src = "Scuba.png";
+				player.image.src = "assets/scubasim/scuba.png";
 			}
 		
 		//If dead, display endImg
@@ -329,13 +282,13 @@
 		health.timer -= .01;
 		
 		if (health.timer < 0.5){
-			health.image.src = "HealthPop.png";
+			health.image.src = "assets/scubasim/HealthPop.png";
 		}
 		
 		if (health.timer < 0){
 			health.spawned = false;
 			initialize(health);
-			health.image.src = "Health.png";
+			health.image.src = "assets/scubasim/Health.png";
 		}
 	}
 
@@ -347,7 +300,7 @@
 	function moveJellyfish(){
 		if (jellyfish.speed <= 0){
 			//Initialize jellyfish
-			jellyfish.image.src = "Jellyfish.png";
+			jellyfish.image.src = "assets/scubasim/jellyfish.png";
 			jellyfish.rotate = pointTowardsPlayer(jellyfish);
 			jellyfish.speed = 5;
 			jellyfish.timer = 1;
@@ -362,7 +315,7 @@
 		
 		//Move jellyfish
 		if (jellyfish.timer <= 0 ){
-			jellyfish.image.src = "JellyfishMove.png";
+			jellyfish.image.src = "assets/scubasim/jellyfishMove.png";
 			jellyfish.x += jellyfish.speed * Math.cos(jellyfish.rotate);
 			jellyfish.y += jellyfish.speed * Math.sin(jellyfish.rotate);
 			jellyfish.speed -= .075;
@@ -406,7 +359,7 @@
 	function moveSquid(){
 		if (squid.speed <= 0){
 			//Initialize squid
-			squid.image.src = "Squid.png";
+			squid.image.src = "assets/scubasim/squid.png";
 			squid.rotate = pointTowardsPlayer(squid);
 			squid.speed = 9;
 			squid.timer = 1;
@@ -421,7 +374,7 @@
 		
 		//Move squid
 		if (squid.timer <= 0 ){
-			squid.image.src = "SquidMove.png";
+			squid.image.src = "assets/scubasim/squidMove.png";
 			squid.x += squid.speed * Math.cos(squid.rotate);
 			squid.y += squid.speed * Math.sin(squid.rotate);
 			squid.speed -= .075;
@@ -458,12 +411,12 @@
 		
 		if (0 < puffer.timer && puffer.timer < 1 && puffer.inflate == false){
 			inflateSound.play();
-			puffer.image.src = "PufferfishLarge.png";
+			puffer.image.src = "assets/scubasim/pufferfishLarge.png";
 			puffer.inflate = true;
 		}
 		
 		if (puffer.timer <= 0){
-			puffer.image.src = "PufferfishSmall.png";
+			puffer.image.src = "assets/scubasim/pufferfishSmall.png";
 			spike.spawned = true;
 			puffer.inflate = false;
 			spike.x = puffer.x;
@@ -627,7 +580,7 @@
 			healSound.play();
 			hits += 1;
 		}
-		document.getElementById("hits").src = "Hits" + hits + ".png";
+		document.getElementById("hits").src = "assets/scubasim/hits" + hits + ".png";
 		health.spawned = false;
 		initialize(health);
 	}
@@ -636,8 +589,8 @@
 	function getHit(){
 		hitSound.play();
 		hits -= 1;
-		document.getElementById("hits").src = "Hits" + hits + ".png";
-		player.image.src = "ScubaHit.png";
+		document.getElementById("hits").src = "assets/scubasim/hits" + hits + ".png";
+		player.image.src = "assets/scubasim/scubaHit.png";
 		if (hits > 0){
 		player.type = "invincible";
 		player.speed = 3; //player.speed is player.timer

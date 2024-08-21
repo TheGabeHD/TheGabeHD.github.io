@@ -1,101 +1,287 @@
-<!--HEADER START-->
-<!DOCTYPE html>
-<html>
-<title>Gabriel Domino</title>
-<link href="Scuba.png" rel="icon" type="image/png"/>
-<style>
-	body {
-		font-family: calibri;
-		background: #121212;
-		color: #f8f8ff;
-		margin: 0;
-	}
-	
-	#container {
-		position: relative;
-		min-height: 85vh;
-		margin: 0;
-	}
-	
-	#header {
-		width: 100%;
-		padding: 10px 0px;
-		background: #333333;
-		text-align: center;
-	}
-	
-	#header a {
-		color: #f8f8ff;
-		text-decoration: none;	
-	}
-	
-	#content {
-		margin: 100px auto 0px auto;
-		padding: 0px 0px 100px 0px;
-		width: 500px;
-		text-align: justify;
-	}
-	
-	#content h4 {
-		text-align: center;
-	}
-	
-	#content .imgLink img {
-		border-style: solid;
-		border-width: 2px;
-		border-color: #f8f8ff;
-	}
-	
-	#content .imgLink img:hover {
-		border-color: #ffcc00;
-	}
-	
-	#content .imgLink img:active {
-		border-color: #ffcc00;
-	}
-	
-	#footer {
-		text-align: center;
-		padding: 15px 0px;
-		width: 100%;
-		bottom: 0px;
-		position: absolute;
-	}
-	
-</style>
-<body>
-<div id="container">
-	<div id="header">
-		<a href="index.html"><strong><font size="5">GABRIEL DOMINO</font></strong></a>
-	</div>
-	<div id="content">
-		<a class="imgLink" href="https://swapgame.io"><img src="bannerSwap.png"></a><br><br>
-		<a class="imgLink" href="ChessAttack.html"><img src="bannerChessAttack.png"></a><br><br>
-		<a class="imgLink" href="DevourTheTower.html"><img src="bannerDTT.png"></a><br><br>
-		<a class="imgLink" href="ScubaSim.html"><img src="bannerScubaSim.png"></a>
-		<h4><strong><font size="5">ABOUT ME</font></strong></h4>
-		<p>
-		My name is Gabriel Domino and I like to make games. 
-		Here on my website I post links to games that I've made or have otherwise been a part of.
-		Please enjoy!
-		<br><br>
-		If you or someone you know is seeking to fill a game developer, gameplay programmer, or other game-related position, and you think I would be a good fit, I would love to talk.
-		<br><br>
-		My email is: <a class="link" href="mailto:gabehdomino@gmail.com">gabehdomino@gmail.com</a>
-		</p>
-	</div>
-	<div id="footer">
-		<font size="2">Copyright &copy; 2020 Gabriel Domino. All rights reserved.<font>
-	</div>
-</div>
-</body>
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Gabriel Domino | Game Developer</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+        <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="assets/scubasim/scuba.png" rel="icon" type="png">
+        <style>
+
+            body {
+                margin-top: 70px;
+            }
+
+            .navbar-subtitle {
+                font-size: 14px;
+            }
+
+            .navbar-brand {
+                line-height: 0.8;
+            }
+
+            .nav-item {
+                margin-left: 20px;
+            }
+
+            .btn-steam {
+                background-color: black;
+            }
+
+            .btn-steam:hover, .btn-steam:active {
+                background-color: #303030 !important;
+            }
+
+            .btn-itchio {
+                background-color: #FA5C5C;
+            }
+
+            .btn-itchio:hover, .btn-itchio:active {
+                background-color: #C64949 !important;
+            }
+
+        </style>
+    </head>
+    <body>
+
+        <!-- NAVBAR -->
+        <header>
+            <div class="navbar navbar-dark bg-dark shadow-sm fixed-top">
+                <div class="container">
+                    <a href="#" class="navbar-brand">
+                        <strong>Gabriel Domino</strong><br>
+                        <small class="navbar-subtitle fw-lighter">Game Developer</small>
+                    </a>
+                    <ul class="navbar-nav ms-auto list-group-horizontal">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#projects">Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#resume">Resume</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <main>
+
+            <!-- INTRO -->
+            <section class="py-5 text-center container">
+                <div class="row py-lg-5">
+                    <div class="col-lg-6 col-md-8 mx-auto">
+                        <h1 class="fw-light">Hi there!</h1>
+                        <p class="lead text-body-secondary">My name is <b>Gabriel Domino</b> and I like to make games. Here on my website I post links to games that I've made or have been a part of. Please enjoy!</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="bg-body-tertiary">
+                <div class="album py-5">
+                    <div class="container">
+                        <div class="row row-cols-1 g-3">
+
+                            <!-- SWAP -->
+                            <div class="col">
+                                <div class="card shadow-sm" style="background-color: black;">
+                                    <div class="row g-0">
+                                        <div class="col-lg-6 order-lg-2">
+                                            <div class="d-flex">
+                                                <video class="w-100 m-2 rounded" src="assets/videos/swap_trailer_short.mp4" type="video/mp4" autoplay muted loop></video>
+                                            </div>
+                                        </div>                                    
+                                        <div class="col">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><b>SWAP</b></h5>
+                                                <h6 class="card-subtitle"><i>Game Design & Development</i></h6><br>
+                                                <p class="card-text">
+                                                    SWAP is a simple yet brutally difficult rhythm game developed by indie studio <b>Sumi Labs</b>.
+                                                    It features an amazing soundtrack created by <b>Dance With the Dead</b>.
+                                                    It was released on Steam, iOS and Google Play.<br>
+                                                    <br>
+                                                    <b>Team Size</b>: 2<br>
+                                                    <b>Engine</b>: Unity<br>
+                                                    <br>
+                                                    <b>Notable Contributions</b>:<br>
+                                                    - Full <b>controller support</b> including level editor.<br>
+                                                    - Settings menu and functionality.<br>
+                                                    - Jukebox and monetization pages.<br>
+                                                </p>
+                                            </div>
+                                            <div class="row ms-1">
+                                                <div class="col-auto">
+                                                    <a class="btn btn-primary my-3" href="https://swapgame.io/" target="_blank" role="button">Go to Website</a>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <a class="btn btn-steam my-3" href="https://store.steampowered.com/app/2310550/SWAP/" target="_blank">
+                                                        <img src="assets/images/steam_badge_white.svg" height="30">
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CHESS ATTACK -->
+                            <div class="col">
+                                <div class="card shadow-sm" style="background-color: #171424;">
+                                    <div class="row g-0">
+                                        <div class="col-lg-4">
+                                            <div class="d-flex">
+                                                <video class="w-100 m-2 rounded" src="assets/videos/chessattack_gameplay.mp4" type="video/mp4" autoplay muted loop></video>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><b>Chess Attack</b></h5>
+                                                <h6 class="card-subtitle"><i>Game Design, Development, Art, Publishing</i></h6><br>
+                                                <p class="card-text text-right">
+                                                    Chess Attack is a chess-based endless survival game where you play as the king. 
+                                                    It was a project I created for fun while in college and was released on iOS and Android but has since moved to itch.io.<br>
+                                                    <br>
+                                                    <b>Team Size</b>: 1<br>
+                                                    <b>Engine</b>: Unity<br>
+                                                    <br>
+                                                    <b>Notable Contributions</b>:<br>
+                                                    - <b>Game design</b> and <b>gameplay programming</b>.<br>
+                                                    - Publishing on <b>iOS Appstore</b> and <b>Google Play</b>.<br>
+                                                    - Online <b>leaderboards</b> for both game modes.
+                                                </p>
+                                                <a class="btn btn-itchio mt-3" href="https://gabe-hd.itch.io/chessattack" target="_blank">
+                                                    <img src="assets/images/itchio_badge_white.svg" height="30">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- DEVOUR THE TOWER -->
+                            <div class="col">
+                                <div class="card shadow-sm" style="background-color: #2B0A1A;">
+                                    <div class="row g-0">
+                                        <div class="col-lg-3 order-lg-2">
+                                            <div class="d-flex justify-content-lg-end justify-content-center">
+                                                <video height="400" class="m-2 rounded" src="assets/videos/dvt_gameplay.mp4" type="video/mp4" autoplay muted loop></video>
+                                            </div>
+                                        </div>                                       
+                                        <div class="col">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><b>Devour the Tower</b></h5>
+                                                <h6 class="card-subtitle"><i>Game Design, Development, Monetization</i></h6><br>
+                                                <p class="card-text">
+                                                    Devour the Tower is a casual game about a baby eating ice cream. 
+                                                    It was created for a college senior design competition where it was awarded <b>1st place</b> in the <b>Computer Science</b> division.
+                                                    The game was released on iOS and Android but has since moved to itch.io.<br>
+                                                    <br>
+                                                    <b>Team Size</b>: 7<br>
+                                                    <b>Engine</b>: Unity<br>
+                                                    <br>
+                                                    <b>Notable Contributions</b>:<br>
+                                                    - <b>Gameplay programming</b>.<br>
+                                                    - Rewarded ads via <b>Unity Ads</b> system.<br>
+                                                    - <b>Game Center</b> and <b>Google Play Leaderboards</b> integration.
+                                            </p>
+                                            <a class="btn btn-itchio mt-3" href="https://gabe-hd.itch.io/devourthetower" target="_blank">
+                                                <img src="assets/images/itchio_badge_white.svg" height="30">
+                                            </a>                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- SCUBA SIM -->
+                            <div class="col" id="scubasim">
+                                <div class="card shadow-sm" style="background-color: #031633;">
+                                    <div class="row g-0">
+                                        <div class="col-lg-5">
+                                            <div class="d-flex">
+                                                <video class="w-100 m-2 rounded" src="assets/videos/scubasim_gameplay.mp4" type="video/mp4" autoplay muted loop></video>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><b>Scuba Sim</b></h5>
+                                                <h6 class="card-subtitle"><i>Game Design, Development, Art</i></h6><br>
+                                                <p class="card-text">
+                                                    Scuba Sim is a game where you dodge dangerous sea creatures using your mouse.
+                                                    It was my first experience with game development. The original version was made with block-based programming using MIT App Inventor 2. 
+                                                    I recreated it using Javascript in order to host it on the web, where it lives to this day.<br>
+                                                    <br>
+                                                    <b>Team Size</b>: 1<br>
+                                                    <b>Language</b>: Javascript
+                                                </p>
+                                                <a class="btn btn-primary mt-3" href="ScubaSim.html" role="button">Play in Browser</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="py-5">
+                    <div class="container">
+                        <div class="row row-cols-1 row-cols-md-2 g-3">
+
+                            <!-- RESUME -->
+                            <div id="resume" class="col">
+                                <div class="card shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <h4 class="card-title">Resume</h4><br>
+                                        <p class="card-text">
+                                            Looking for my resume? View or download it using the button below.
+                                        </p>
+                                        <a class="btn btn-secondary my-5" href="assets/resume.pdf" role="button">View Resume</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CONTACT -->
+                            <div id="contact" class="col">
+                                <div class="card shadow-sm">
+                                    <div class="card-body">
+                                        <h4 class="card-title text-center">Contact</h4><br>
+                                        <p class="card-text">
+                                            Looking to get in touch? Feel free to send me an email!<br>
+                                            <br>
+                                            <b>Email</b>: <a href="mailto:gabehdomino@gmail.com" target="_blank">gabehdomino@gmail.com</a><br>
+                                            <br>
+                                            You can also find me on the following websites:<br>
+                                            <br>
+                                            <b>LinkedIn</b>: <a href="https://www.linkedin.com/in/gabrieldomino/" target="_blank">linkedin.com/in/gabrieldomino</a><br>
+                                            <b>Github</b>: <a href="https://www.github.com/TheGabeHD" target="_blank">github.com/TheGabeHD</a><br>
+                                            <b>itch.io</b>: <a href="https://gabe-hd.itch.io/" target="_blank">gabe-hd.itch.io</a><br>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="text-body-secondary bg-black py-4">
+            <div class="container text-center">
+                Copyright &copy 2024 Gabriel Domino.
+            </div>
+        </footer>
+
+        <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>
-
-
-<!-- 
-	TODO: 
-		- Custom domain
-		- Add resume
-		- Move about to front page
-		- Change card style
--->
